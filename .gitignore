@@ -20,7 +20,6 @@
 # Go workspace file
 go.work
 
-
 # editor and IDE paraphernalia
 .idea
 *.swp
@@ -33,3 +32,11 @@ go.work
 /kubeconfig
 .dockerignore
 .docker
+
+*.yaml
+*.iso
+
+bin/
+
+env.sh
+.hypershift*
