@@ -19,3 +19,17 @@
 
 # Go workspace file
 go.work
+
+
+# editor and IDE paraphernalia
+.idea
+*.swp
+*.swo
+*~
+.vscode
+.envrc
+
+.kube
+/kubeconfig
+.dockerignore
+.docker
