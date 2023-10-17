@@ -4,7 +4,6 @@ set -x
 
 PRIVATE_INT=$1
 PUBLIC_INT=$2
-GATEWAY_IP=$3
 
 echo 1 > /proc/sys/net/ipv4/ip_forward
 iptables -A FORWARD -i $PRIVATE_INT -o $PUBLIC_INT -j ACCEPT
@@ -21,4 +20,5 @@ ethtool -K $PUBLIC_INT tso off
 ethtool -K $PRIVATE_INT tso off
 ethtool -K $PRIVATE_INT gso off
 
+ifconfig ${PUBLIC_INT} mtu 1450 up
 ifconfig ${PRIVATE_INT} mtu 1450 up
