@@ -77,6 +77,10 @@ cp -rf ${MOUNT_LOCATION}/images/* /var/lib/tftpboot/images/${CLUSTER_NAME}
 # Preparing menu entry content by changin image path and
 MENU_ENTRY_CONTENT=$(sed -n "/menuentry /,/}/p" /mnt/${CLUSTER_NAME}/boot/grub/grub.cfg | sed '1d;$d' | sed 's/\/images/images\/${CLUSTER_NAME}/g')
 MENU_ENTRY_CONTENT=$(echo $MENU_ENTRY_CONTENT | envsubst)
+ROOTFS_DOWNLOAD_LINK=$(echo $MENU_ENTRY_CONTENT | sed -n "s/.*\(https:\/\/[^[:space:]\']*\).*/\1/p")
+mkdir /var/www/html/${CLUSTER_NAME}
+curl -k ${ROOTFS_DOWNLOAD_LINK} --output /var/www/html/${CLUSTER_NAME}/rootfs.img
+MENU_ENTRY_CONTENT=$(echo $MENU_ENTRY_CONTENT | sed  "s|'coreos.live.rootfs_url=[^ ]*'|'coreos.live.rootfs_url=http://192.168.140.2/${CLUSTER_NAME}/rootfs.img'|g")
 export MENU_ENTRY_CONTENT
 
 # Preparing GRUB_MENU_OUTPUT
@@ -88,6 +92,7 @@ for (( i = 0; i < ${NODE_COUNT}; i++ )); do
     export SERVER_MAC=${MAC[i]}
     CONFIG=$(cat grub-menu.template | envsubst)
     GRUB_MENU_OUTPUT+=${CONFIG}
+    GRUB_MENU_OUTPUT+="\n"
 done
 GRUB_MENU_OUTPUT+="\n"
 GRUB_MENU_OUTPUT+=${GRUB_MENU_END}
