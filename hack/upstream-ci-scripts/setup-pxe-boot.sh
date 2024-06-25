@@ -88,6 +88,7 @@ for (( i = 0; i < ${NODE_COUNT}; i++ )); do
     export SERVER_MAC=${MAC[i]}
     CONFIG=$(cat grub-menu.template | envsubst)
     GRUB_MENU_OUTPUT+=${CONFIG}
+    GRUB_MENU_OUTPUT+="\n"
 done
 GRUB_MENU_OUTPUT+="\n"
 GRUB_MENU_OUTPUT+=${GRUB_MENU_END}
