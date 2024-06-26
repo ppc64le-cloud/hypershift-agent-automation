@@ -42,6 +42,8 @@ rm -rf ${MOUNT_LOCATION}
 
 rm -rf /var/lib/tftpboot/images/${CLUSTER_NAME}
 
+rm -rf /var/www/html/${CLUSTER_NAME}
+
 rm -f /tmp/${CLUSTER_NAME}-iso-download-link
 rm -f /tmp/${CLUSTER_NAME}-grub-menu.output
 rm -f ${ISO_FILE}

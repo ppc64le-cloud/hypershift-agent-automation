@@ -1,3 +1,4 @@
     if [ ${GRUB_MAC_CONFIG} = "${SERVER_MAC}" ]; then
         ${MENU_ENTRY_CONTENT}
     fi
+
